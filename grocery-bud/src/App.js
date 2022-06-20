@@ -11,7 +11,16 @@ const App = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Hola!");
+    if(!name) {
+      // dispalay alert
+    } else if(name && isEditing) {
+      // editing
+    } else {
+      // show alert
+      const newItem = {id: new Date().getTime().toString(), title: name};
+      setList([...list, newItem]);
+      setName("")
+    }
   }
 
   return (
@@ -26,10 +35,12 @@ const App = () => {
         </button>
       </div>
     </form>
-      <div className="grocery-container">
-        <List />
-        <button className="clear-btn">Clear Items</button>
-      </div>
+      {list.length > 0 && (
+        <div className="grocery-container">
+          <List items={list} />
+          <button className="clear-btn">Clear Items</button>
+        </div>
+      )}
     </section>
   )
 }
