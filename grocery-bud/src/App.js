@@ -13,20 +13,25 @@ const App = () => {
     e.preventDefault();
     if(!name) {
       // dispalay alert
+      showAlert(true, "danger", "Please enter a value.");
     } else if(name && isEditing) {
       // editing
     } else {
       // show alert
       const newItem = {id: new Date().getTime().toString(), title: name};
       setList([...list, newItem]);
-      setName("")
+      setName("");
     }
+  }
+
+  const showAlert = (show=false, type="", msg="") => {
+    setAlert({show: show, type, msg})
   }
 
   return (
     <section className="section-center">
     <form className="grocery-form" onSubmit={handleSubmit}>
-      {alert.show && <Alert />}
+      {alert.show && <Alert {...alert} removeAlert = {showAlert} />}
       <h3>Grocery Bud</h3>
       <div className="form-control">
         <input type="text" className="grocery" placeholder="e.g. milk" value={name} onChange={(e) => setName(e.target.value)} />
